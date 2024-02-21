@@ -283,6 +283,7 @@ name = "rust_chain"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "sha2",
  "sha256",
 ]
 
