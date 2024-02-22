@@ -288,13 +288,25 @@ impl Blockchain {
             vec![0; 32] // 32 bytes of 0s, assuming SHA-256 or similar
         }
     }
+    
+    pub fn print_json(&self) -> serde_json::Result<()> {
+        // Serialize the blockchain to a pretty-printed JSON string
+        let json = serde_json::to_string_pretty(&self)?;
+        println!("{}", json);
+        Ok(())
+    }
 }
 
 impl Drop for Blockchain {
     fn drop(&mut self) {
+    	// Print a message that this is the final Blockchain
+    	println!("Final Blockchain instance:");
+    	self.print_json();
+    
         // Print a message when the Blockchain instance is dropped and saved to a file
         println!("Dropping Blockchain instance pesrsistently to blockchain.json.");
         // Save the blockchain to a file before dropping the instance
+        
         // Attempt to save to file here
         let _ = self.save_to_file("./blockchain.json");
     }
@@ -311,6 +323,10 @@ fn run_test() -> Result<(), Box<dyn std::error::Error>> {
     let mut blockchain = Blockchain::new();
 
     blockchain.load_from_file("./blockchain.json")?;
+    println!("Blockchain loaded from file");
+    blockchain.print_json();
+    
+    println!("Begin Transactions to mempool");
 
     // Add 2 * MAX_TRANSACTIONS_PER_BLOCK transactions to the mempool
     blockchain.add_transaction("Alice".to_string(), "Bob".to_string(), 5);
