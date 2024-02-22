@@ -196,16 +196,15 @@ impl Blockchain {
         self.chain.len()
     }
 
-    pub fn load_from_file(&mut self, path: &str) -> Result<Self, Box<dyn std::error::Error>> {
-        // Check if the file exists
-        if !std::path::Path::new(path).exists() {
-            // If the file does not exist, return a new instance of the blockchain
-            return Ok(Blockchain::new());
+    pub fn load_from_file(&mut self, path: &str) -> Result<(), Box<dyn std::error::Error>> {
+        if std::path::Path::new(path).exists() {
+            let data = std::fs::read_to_string(path)?;
+            if !data.trim().is_empty() { // Check if the file is not just whitespace
+                *self = serde_json::from_str(&data)?;
+            }
+            // If the file is empty or only contains whitespace, do nothing
         }
-
-        let data = std::fs::read_to_string(path)?;
-        let blockchain = serde_json::from_str(&data)?;
-        Ok(blockchain)
+        Ok(())
     }
 
     pub fn save_to_file(&self, path: &str) -> Result<(), Box<dyn std::error::Error>> {
