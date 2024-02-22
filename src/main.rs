@@ -336,7 +336,10 @@ fn run_test() -> Result<(), Box<dyn std::error::Error>> {
 	blockchain.add_transaction("Alice".to_string(), "Bob".to_string(), 5);
 	blockchain.add_transaction("Charlie".to_string(), "Dana".to_string(), 3);
 	blockchain.add_transaction("Alice".to_string(), "Bob".to_string(), 5);
-	blockchain.add_transaction("Charlie".to_string(), "Dana".to_string(), 3);
+	blockchain.add_transaction("Fred".to_string(), "Barney".to_string(), 3);
+	
+	// Create a dangling transaction that should be persisted, it won't create a block
+	blockchain.add_transaction("George".to_string(), "Henry".to_string(), 5);
 	             
 	// Example validation check
 	assert!(blockchain.validate_chain(), "Blockchain should be valid after adding transactions and creating blocks.");
