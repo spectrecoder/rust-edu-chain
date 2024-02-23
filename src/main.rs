@@ -546,29 +546,6 @@ fn run_test() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn verify_merkle_proof(proof: &MerkleProof, merkle_root: &Vec<u8>) -> bool {
-    let mut current_hash = proof.leaf.clone();
-
-    // Iterate over the path, applying each step's hash and direction to reconstruct the path
-    for (sibling_hash, is_right_sibling) in &proof.path {
-        let mut combined = Vec::new();
-
-        if *is_right_sibling {
-            combined.extend_from_slice(&current_hash);
-            combined.extend_from_slice(sibling_hash);
-        } else {
-            combined.extend_from_slice(sibling_hash);
-            combined.extend_from_slice(&current_hash);
-        }
-
-        // Hash the combined data to move one level up in the tree
-        current_hash = Block::hash_function(&combined);
-    }
-
-    // The final hash should match the provided Merkle root
-    &current_hash == merkle_root
-}
-
 
 fn main() {
     if let Err(e) = run_test() {
