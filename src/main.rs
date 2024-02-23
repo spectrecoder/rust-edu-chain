@@ -24,7 +24,7 @@ impl Block {
         // <--- Return Option<Vec<u8>>
         // Use a SHA-256 library to calculate the hash of the block data
         let timestamp_bytes = self.timestamp.to_le_bytes();
-        let merkle_root = self.calculate_merkle_root().unwrap_or_else(|| vec![0; 32]); // Or vec![] depending on your hash function and design
+        let merkle_root = self.calculate_merkle_root().unwrap_or_else(|| vec![0; 32]); 
         let mut data_to_hash = Vec::new();
 
         // Correctly handle previous_hash:
@@ -76,7 +76,7 @@ impl Block {
                     let hash_result = hasher.finalize();
                     hash_result.into()
                 })
-                .collect::<Vec<[u8; 32]>>(); // Correctly collecting into a Vec<[u8; 32]>
+                .collect::<Vec<[u8; 32]>>(); 
         }
 
         Some(leaf_hashes.first()?.to_vec()) // Convert the first (and only) hash array to Vec<u8>
@@ -220,12 +220,11 @@ impl Block {
                 .as_ref()
                 .map_or_else(|| "None".to_string(), |hash| to_hex_string(hash))
         );
-        // Assuming Transaction implements Debug for {:?} printing
+
         println!("Transactions: {:?}", self.transactions);
     }
 }
 
-// Define a struct for serialization that uses hex strings for byte arrays
 #[derive(Serialize)]
 pub struct SerializableBlock {
     id: u32,
@@ -240,7 +239,7 @@ pub struct SerializableBlock {
 pub struct Transaction {
     sender: String,
     receiver: String,
-    amount: u64, // or any other relevant fields
+    amount: u64, // or whatever type 
     pub hash: Vec<u8>,
 }
 
@@ -391,7 +390,6 @@ impl Blockchain {
             .drain(..MAX_TRANSACTIONS_PER_BLOCK)
             .collect::<Vec<Transaction>>();
 
-        // Assuming you have implemented a method to calculate a new block's hash
         let block_hash = Some(vec![0, 32]); // Placeholder
 
         let mut new_block = Block {
@@ -508,7 +506,7 @@ fn run_test() -> Result<(), Box<dyn std::error::Error>> {
     // Create a dangling transaction that should be persisted, it won't create a block
     blockchain.add_transaction("George".to_string(), "Henry".to_string(), 5);
 
-    // Example validation check
+    // Validation check
     assert!(
         blockchain.validate_chain(),
         "Blockchain should be valid after adding transactions and creating blocks."
@@ -525,13 +523,10 @@ fn run_test() -> Result<(), Box<dyn std::error::Error>> {
         .expect("Merkle proof should be generated");
 
     // Verify the Merkle proof
-    // Assuming you have a `verify_merkle_proof` function that takes a `MerkleProof`, a transaction hash, and a Merkle root
     let merkle_root_option = blockchain.chain[1].merkle_root.clone(); // Get the Merkle root of the block containing the transaction
 
     if let Some(merkle_root) = merkle_root_option {
-        // Now `merkle_root` is of type `Vec<u8>`, and you can pass it to `verify_merkle_proof`
         assert!(
-            //verify_merkle_proof(&merkle_proof, &merkle_root),
             merkle_proof.verify(&merkle_root),
             "Merkle proof should be valid"
         );
