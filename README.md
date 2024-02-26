@@ -1,11 +1,11 @@
 
 # Rust Blockchain Project
 
-This project rust_chain, is a simple, educational blockchain implementation in Rust. It demonstrates the fundamental concepts of blockchain technology, including creating blocks, managing a blockchain, and calculating Merkle proofs. This project is designed for educational purposes and serves as a foundation for understanding how blockchains work under the hood.
+Project rust_chain, is a simple, educational blockchain implementation in Rust. It demonstrates the fundamental concepts of blockchain technology, including creating blocks, managing a blockchain, and calculating Merkle proofs. This project is designed for educational purposes and serves as a foundation for understanding how blockchains work under the hood.
 
 ## Features
 
-- Basic blockchain structure and block creation
+- Basic blockchain structure, block creation, chain verificaction
 - Proof of Work (PoW) consensus algorithm [Maybe TBD]
 - Transaction management and processing
 - CLI for interacting with the blockchain [Or Web UI TBD]
@@ -18,7 +18,7 @@ This project rust_chain, is a simple, educational blockchain implementation in R
 - Rust programming environment ([Rustup](https://rustup.rs/))
 - Cargo (comes with Rustup installation)
   
-- I used Eclipse on Ubuntu.
+- I used Eclipse on Ubuntu. You'll have to use apt or your favorite package manager tool to install the Rust development packages. I used synaptic.
 
 ### Installation
 
@@ -34,6 +34,8 @@ cd rust_chain
 
 cargo build --release
 
+
+In Eclipse, install the Rust package from the market. The "Run" button will save files, compile and run your project. 
 
 ### Running the Application
 
