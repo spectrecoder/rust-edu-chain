@@ -1,8 +1,7 @@
 use crate::transaction::Transaction;
-use serde::{Deserialize, Serialize};
 use crate::utils::to_hex_string;
 use sha2::{Digest, Sha256};
-
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Block {

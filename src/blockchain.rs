@@ -46,7 +46,7 @@ impl Blockchain {
         block.calculate_hash() == block.hash
     }
 
-    // Helper methods:
+    // Helper functions for the Blockchain struct:
 
     pub fn get_chain(&self) -> &Vec<Block> {
         self.chain.as_ref()
