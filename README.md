@@ -46,7 +46,7 @@ cargo run
 
 ## Usage
 
-[TBD]
+In main() the run_test() function will be called. You can modify the tests there as desired. Currently as configured, a file blockchain.json will be written when the blockchain goes out of scope at the end of the test. Subsequent runs of rust_chain will load this file and restore the previous state, so if you want to start from fresh, delete this file. There are a number of print_json() that have been commented out for brevity from the console, and at some point of course we can have a better debugging log, but this is fine for now. The mempool is hard coded so that after 4 transactions are added, a new block is created and the pool is drained by 4. In the current test, there are 8 additions and 1 extra "dangling" addition, that makes 2 blocks and an singleton transaction that gets properly persisted. Then if rust_chain is executed 4 times, there should be 8 more blocks and an additional block made of the previously dangling transactions with an empty pool.
 
 ## Architecture
 
