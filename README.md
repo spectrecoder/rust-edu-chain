@@ -60,7 +60,7 @@ This project is structured as follows:
 - `src/blockchain.rs`: Contains the core blockchain logic, including block creation and the Merkle tree algorithm.
 - `src/transaction.rs`: Defines the transaction structure and how transactions are processed.
 - `src/block.rs`: Defines the block structure and how blocks are created and validated.
-- `src/merkle_proof.rs`: Implements the Merlke verifier against the tree.
+- `src/merkle_proof.rs`: Implements the Merkle verifier against the tree.
 
 ## Contributing
 
